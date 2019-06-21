@@ -1,2 +1,3 @@
-# DominosPizzaAPI
-A Wrapper for the Dominos Pizza API written in Java
+# Dominos Pizza API
+
+This is a Java wrapper for the Dominos Pizza API
