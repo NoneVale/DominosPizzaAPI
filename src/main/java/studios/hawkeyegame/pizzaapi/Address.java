@@ -1,5 +1,7 @@
 package studios.hawkeyegame.pizzaapi;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import studios.hawkeyegame.pizzaapi.utils.DominosURL;
 
 import java.io.BufferedReader;
@@ -50,6 +52,17 @@ public class Address {
         }
         in.close();
 
-        System.out.println(response.toString());
+        JSONObject object = new JSONObject(response.toString());
+        JSONArray stores = object.getJSONArray("Stores");
+
+        for (int i = 0; i < stores.length(); i++) {
+            if (!stores.getJSONObject(i).getBoolean("IsOpen")) {
+                System.out.println(stores.getJSONObject(i).toString());
+                System.out.println();
+            }
+        }
+
+
+        //System.out.println(response.toString());
     }
 }
