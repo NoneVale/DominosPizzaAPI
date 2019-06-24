@@ -1,5 +1,6 @@
 package studios.hawkeyegame.pizzaapi;
 
+import com.google.common.collect.Lists;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import studios.hawkeyegame.pizzaapi.utils.DominosURL;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class Address {
 
@@ -55,14 +57,23 @@ public class Address {
         JSONObject object = new JSONObject(response.toString());
         JSONArray stores = object.getJSONArray("Stores");
 
+        List<Store> storeList = Lists.newArrayList();
         for (int i = 0; i < stores.length(); i++) {
-            if (!stores.getJSONObject(i).getBoolean("IsOpen")) {
-                System.out.println(stores.getJSONObject(i).toString());
-                System.out.println();
-            }
+            JSONObject storeObject = stores.getJSONObject(i);
+            String id = storeObject.getString("StoreID");
+            String address = storeObject.getString("AddressDescription");
+            boolean isOpen = storeObject.getBoolean("IsOpen");
+            boolean isDelivery = storeObject.getBoolean("AllowDeliveryOrders");
+            boolean isCarryout = storeObject.getBoolean("AllowCarryoutOrders");
+
+            storeList.add(new Store(id, address, isOpen, isDelivery, isCarryout));
         }
 
+        for (Store store:
+             storeList) {
+            store.print();
 
+        }
         //System.out.println(response.toString());
     }
 }

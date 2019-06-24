@@ -3,7 +3,7 @@ package studios.hawkeyegame.pizzaapi;
 public class Main {
 
     public static void main(String[] args) {
-        Address address = new Address("", "", "", "", "USA");
+        Address address = new Address("", "", "");
 
         try {
             address.getStores();
